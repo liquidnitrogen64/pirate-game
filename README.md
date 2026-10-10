@@ -1,2 +1,2 @@
-# magician-game
-balatro-esque game about showing off your magic tricks!
+# pirate-game
+a side scroller pirate game!
