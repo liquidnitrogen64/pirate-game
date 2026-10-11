@@ -7,8 +7,12 @@ const k = kaplay();
 
 
 k.loadRoot("./"); // A good idea for Itch.io publishing later
+
 // place to load all sprites
 
+//k.loadSpriteAtlas("sprites/tileset.png", {
+
+//})
 k.loadSprite("main", "sprites/main.png", {
         sliceX: 11,
         sliceY: 118,
@@ -18,18 +22,20 @@ k.loadSprite("main", "sprites/main.png", {
             run: { from: 11, to: 14 },
             jump: { from: 22, to: 25 },
             slash:{from: 1232, to: 1237},
-            dash:{from: 88, to: 93},
+            dash:{from: 517, to: 530},
             swim:{from: 891, to: 894},
             death:{from: 704, to: 710},
         },
     })
 //vars
 var hasSlashed = false;
+var hasDashed = false;
+var hasJumped = false;
 //placing sprites
 const main = k.add([
     k.sprite("main"),
-    k.pos(100,100),
-    k.scale(10,10),
+    k.pos(500,500),
+    k.scale(8,8),
     k.area(),
     k.anchor("center"),
     k.body(),
@@ -40,7 +46,7 @@ const timer = k.add([
 main.play("idle", { loop: true });
 
 //actions
-//setGravity(2400)
+k.setGravity(2400);
 
 
 k.onKeyPress("right", () => {
@@ -49,7 +55,9 @@ k.onKeyPress("right", () => {
 })
 
 k.onKeyDown("right", () => {
-    main.move(600, 0);
+    if (!hasDashed && !hasSlashed) {
+        main.move(600, 0);
+    }
 })
 
 k.onKeyRelease("right", () => {
@@ -64,11 +72,49 @@ k.onKeyPress("left", () => {
 })
 
 k.onKeyDown("left", () => {
-    main.move(-600, 0);
+    if (!hasDashed && !hasSlashed) {
+        main.move(-600, 0);
+    }
 })
 
 k.onKeyRelease("left", () => {
     main.play("idle", { loop: true });
+})
+
+k.onKeyDown("z", () => {
+    if (!hasDashed && !hasSlashed) {
+        if (!hasJumped) {
+        hasJumped = true;
+        main.play("jump", { loop: false });
+        main.jump(1500);
+        wait(0.4, () => {
+        main.play("idle", { loop: true });
+        })
+    }
+    }
+})
+
+/*
+if(hasJumped) {
+main.onCollide("ground", (o)=>{
+  hasJumped = false;
+})
+*/
+
+k.onKeyPress("c", () => {
+    if(!hasDashed) {
+    hasDashed = true;
+    main.play("dash", { loop: false });
+        wait(0.5, () => {
+    if (main.flipX == false) {
+        main.move(15000, 0);
+    } else {
+        main.move(-15000, 0);
+    }
+        main.play("idle", { loop: true });
+        hasDashed = false;
+        })
+    }
 })
 
 k.onKeyPress("x", () => {
@@ -83,10 +129,18 @@ k.onKeyPress("x", () => {
     }  
 })
 
-
 /*
+if(!hasSlashed && !hasDashed) {
 main.onCollide("enemy", (o)=>{
   main.destroy()
   shake(100)
 })
+} elseif(hasSlashed) {
+    enemy.onCollide("main", (o)=>{
+    enemy.destroy()
+    shake(100)
+    })
+}
 */
+
+//level design (procedural? eventually...)
