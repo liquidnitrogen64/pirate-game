@@ -10,9 +10,108 @@ k.loadRoot("./"); // A good idea for Itch.io publishing later
 
 // place to load all sprites
 
-//k.loadSpriteAtlas("sprites/tileset.png", {
+k.loadSpriteAtlas("sprites/squaresand.png", {
+    "TopLeft":{
+        x: 0,
+        y: 0,
+        width: 96,
+        height: 96,
+        sliceX: 3,
+        sliceY: 3,
+        anim:{
+            normal: 0,
+        }
+    },
+        "TopMid":{
+        x: 0,
+        y: 0,
+        width: 96,
+        height: 96,
+        sliceX: 3,
+        sliceY: 3,
+        anim:{
+            normal: 1,
+        }
+    },
+        "TopRight":{
+        x: 0,
+        y: 0,
+        width: 96,
+        height: 96,
+        sliceX: 3,
+        sliceY: 3,
+        anim:{
+            normal: 2,
+        }
+    },
+        "MidLeft":{
+        x: 0,
+        y: 0,
+        width: 96,
+        height: 96,
+        sliceX: 3,
+        sliceY: 3,
+        anim:{
+            normal: 3,
+        }
+    },
+        "Middle":{
+        x: 0,
+        y: 0,
+        width: 96,
+        height: 96,
+        sliceX: 3,
+        sliceY: 3,
+        anim:{
+            normal: 4,
+        }
+    },
+        "MidRight":{
+        x: 0,
+        y: 0,
+        width: 96,
+        height: 96,
+        sliceX: 3,
+        sliceY: 3,
+        anim:{
+            normal: 5,
+        }
+    },
+        "BottomLeft":{
+        x: 0,
+        y: 0,
+        width: 96,
+        height: 96,
+        sliceX: 3,
+        sliceY: 3,
+        anim:{
+            normal: 6,
+        }
+    },
+        "BottomMid":{
+        x: 0,
+        y: 0,
+        width: 96,
+        height: 96,
+        sliceX: 3,
+        sliceY: 3,
+        anim:{
+            normal: 7,
+        }
+    },
+        "BottomRight":{
+        x: 0,
+        y: 0,
+        width: 96,
+        height: 96,
+        sliceX: 3,
+        sliceY: 3,
+        anim:{
+            normal: 8,
+        }
+    },
+})
 
-//})
 k.loadSprite("main", "sprites/main.png", {
         sliceX: 11,
         sliceY: 118,
@@ -21,8 +120,8 @@ k.loadSprite("main", "sprites/main.png", {
             idle: { from: 0, to: 3 },
             run: { from: 11, to: 14 },
             jump: { from: 22, to: 25 },
-            slash:{from: 1232, to: 1237},
-            dash:{from: 517, to: 530},
+            slash:{from: 1233, to: 1237},
+            dash:{from: 517, to: 529},
             swim:{from: 891, to: 894},
             death:{from: 704, to: 710},
         },
@@ -31,6 +130,7 @@ k.loadSprite("main", "sprites/main.png", {
 var hasSlashed = false;
 var hasDashed = false;
 var hasJumped = false;
+var health = 5;
 //placing sprites
 const main = k.add([
     k.sprite("main"),
@@ -46,7 +146,6 @@ const timer = k.add([
 main.play("idle", { loop: true });
 
 //actions
-k.setGravity(2400);
 
 
 k.onKeyPress("right", () => {
@@ -94,18 +193,17 @@ k.onKeyDown("z", () => {
     }
 })
 
-/*
-if(hasJumped) {
-main.onCollide("ground", (o)=>{
-  hasJumped = false;
-})
-*/
+if(hasJumped == true) {
+    main.onCollide("ground"), (o)=>{
+    hasJumped = false;
+    }
+}
 
 k.onKeyPress("c", () => {
     if(!hasDashed) {
     hasDashed = true;
     main.play("dash", { loop: false });
-        wait(0.5, () => {
+        wait(0.2, () => {
     if (main.flipX == false) {
         main.move(15000, 0);
     } else {
@@ -129,10 +227,14 @@ k.onKeyPress("x", () => {
     }  
 })
 
+if (main.isTouching("water")) {
+    main.play("swim", { loop: true });
+}
+
 /*
 if(!hasSlashed && !hasDashed) {
 main.onCollide("enemy", (o)=>{
-  main.destroy()
+  health -= 1;
   shake(100)
 })
 } elseif(hasSlashed) {
@@ -141,6 +243,120 @@ main.onCollide("enemy", (o)=>{
     shake(100)
     })
 }
+
+
+onKeyPress("space", () => {
+    health -= 1;
+})
+
+if (health <= 0) {
+    main.play("death", { loop: false });
+    wait(1, () => {
+        main.destroy();
+    })
+}
+*/
+/*
+if (main.destroyed()) {
+
+}
 */
 
+
 //level design (procedural? eventually...)
+k.setGravity(2400);
+
+setBackground(135, 206, 235); // sky blue
+
+const level = addLevel([
+    // Design the level layout with symbols
+    "                ",
+    "                ",
+    "                ",
+    "                ",
+    "                ",
+    "                ",
+    " <_____________>",
+    " (-------------)",
+], {
+    // The size of each grid
+    tileWidth: 80,
+    tileHeight: 80,
+    // The position of the top left block
+    pos: vec2(100, 200),
+    // Define what each symbol means (in components)
+    tiles: {
+        "_": () => [
+            sprite("TopMid"),
+            area(),
+            scale(3,3),
+            anchor("center"),
+            body({ isStatic: true }),
+            "ground",
+        ],
+        "<": () => [
+            sprite("TopLeft"),
+            area(),
+            scale(3,3),
+            anchor("center"),
+            body({ isStatic: true }),
+            "ground",
+        ],
+        ">": () => [
+            sprite("TopRight"),
+            area(),
+            scale(3,3),
+            anchor("center"),
+            body({ isStatic: true }),
+            "ground",
+        ],
+        "[": () => [
+            sprite("MidLeft"),
+            area(),
+            scale(3,3),
+            anchor("center"),
+            body({ isStatic: true }),
+            "ground",
+        ],
+        "]": () => [
+            sprite("MidRight"),
+            area(),
+            scale(3,3),
+            anchor("center"),
+            body({ isStatic: true }),
+            "ground",
+        ],
+        "o": () => [
+            sprite("Middle"),
+            area(),
+            scale(3,3),
+            anchor("center"),
+            body({ isStatic: true }),
+            "ground",
+        ],
+        "(": () => [
+            sprite("BottomLeft"),
+            area(),
+            scale(3,3),
+            anchor("center"),
+            body({ isStatic: true }),
+            "ground",
+        ],
+        ")": () => [
+            sprite("BottomRight"),
+            area(),
+            scale(3,3),
+            anchor("center"),
+            body({ isStatic: true }),
+            "ground",
+        ],
+        "-": () => [
+            sprite("BottomMid"),
+            area(),
+            scale(3,3),
+            anchor("center"),
+            body({ isStatic: true }),
+            "ground",
+        ],
+    }
+})
