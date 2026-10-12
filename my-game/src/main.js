@@ -11,121 +11,121 @@ k.loadRoot("./"); // A good idea for Itch.io publishing later
 // place to load all sprites
 
 k.loadSpriteAtlas("sprites/squaresand.png", {
-    "TopLeft":{
+    "TopLeft": {
         x: 0,
         y: 0,
         width: 96,
         height: 96,
         sliceX: 3,
         sliceY: 3,
-        anim:{
+        anim: {
             normal: 0,
         }
     },
-        "TopMid":{
+    "TopMid": {
         x: 0,
         y: 0,
         width: 96,
         height: 96,
         sliceX: 3,
         sliceY: 3,
-        anim:{
+        anim: {
             normal: 1,
         }
     },
-        "TopRight":{
+    "TopRight": {
         x: 0,
         y: 0,
         width: 96,
         height: 96,
         sliceX: 3,
         sliceY: 3,
-        anim:{
+        anim: {
             normal: 2,
         }
     },
-        "MidLeft":{
+    "MidLeft": {
         x: 0,
         y: 0,
         width: 96,
         height: 96,
         sliceX: 3,
         sliceY: 3,
-        anim:{
+        anim: {
             normal: 3,
         }
     },
-        "Middle":{
+    "Middle": {
         x: 0,
         y: 0,
         width: 96,
         height: 96,
         sliceX: 3,
         sliceY: 3,
-        anim:{
+        anim: {
             normal: 4,
         }
     },
-        "MidRight":{
+    "MidRight": {
         x: 0,
         y: 0,
         width: 96,
         height: 96,
         sliceX: 3,
         sliceY: 3,
-        anim:{
+        anim: {
             normal: 5,
         }
     },
-        "BottomLeft":{
+    "BottomLeft": {
         x: 0,
         y: 0,
         width: 96,
         height: 96,
         sliceX: 3,
         sliceY: 3,
-        anim:{
+        anim: {
             normal: 6,
         }
     },
-        "BottomMid":{
+    "BottomMid": {
         x: 0,
         y: 0,
         width: 96,
         height: 96,
         sliceX: 3,
         sliceY: 3,
-        anim:{
+        anim: {
             normal: 7,
         }
     },
-        "BottomRight":{
+    "BottomRight": {
         x: 0,
         y: 0,
         width: 96,
         height: 96,
         sliceX: 3,
         sliceY: 3,
-        anim:{
+        anim: {
             normal: 8,
         }
     },
 })
 
 k.loadSprite("main", "sprites/main.png", {
-        sliceX: 11,
-        sliceY: 118,
-        anims: {
-            noAnim: 0,
-            idle: { from: 0, to: 3 },
-            run: { from: 11, to: 14 },
-            jump: { from: 22, to: 25 },
-            slash:{from: 1233, to: 1237},
-            dash:{from: 517, to: 529},
-            swim:{from: 891, to: 894},
-            death:{from: 704, to: 710},
-        },
-    })
+    sliceX: 11,
+    sliceY: 118,
+    anims: {
+        noAnim: 0,
+        idle: { from: 0, to: 3 },
+        run: { from: 11, to: 14 },
+        jump: { from: 22, to: 25 },
+        slash: { from: 1233, to: 1237 },
+        dash: { from: 517, to: 529 },
+        swim: { from: 891, to: 894 },
+        death: { from: 704, to: 710 },
+    },
+})
 //vars
 var hasSlashed = false;
 var hasDashed = false;
@@ -133,8 +133,8 @@ var health = 5;
 //placing sprites
 const main = k.add([
     k.sprite("main"),
-    k.pos(500,500),
-    k.scale(8,8),
+    k.pos(500, 500),
+    k.scale(8, 8),
     k.area(),
     k.anchor("center"),
     k.body(),
@@ -182,25 +182,25 @@ k.onKeyRelease("left", () => {
 
 k.onKeyDown("z", () => {
     if (!hasDashed && !hasSlashed) {
-        if(main.isGrounded()){
+        if (main.isGrounded()) {
             main.jump(1200);
-    }
+        }
     }
 })
 
 
 k.onKeyPress("c", () => {
-    if(!hasDashed) {
-    hasDashed = true;
-    main.play("dash", { loop: false });
+    if (!hasDashed) {
+        hasDashed = true;
+        main.play("dash", { loop: false });
         wait(0.2, () => {
-    if (main.flipX == false) {
-        main.move(15000, 0);
-    } else {
-        main.move(-15000, 0);
-    }
-        main.play("idle", { loop: true });
-        hasDashed = false;
+            if (main.flipX == false) {
+                main.move(15000, 0);
+            } else {
+                main.move(-15000, 0);
+            }
+            main.play("idle", { loop: true });
+            hasDashed = false;
         })
     }
 })
@@ -213,8 +213,8 @@ k.onKeyPress("x", () => {
             main.play("idle", { loop: true });
             hasSlashed = false;
         })
-        
-    }  
+
+    }
 })
 /*
 if (main.isTouching("water")) {
@@ -279,63 +279,63 @@ const level = addLevel([
         "_": () => [
             sprite("TopMid"),
             area(),
-            scale(3,3),
+            scale(3, 3),
             anchor("center"),
             body({ isStatic: true }),
         ],
         "<": () => [
             sprite("TopLeft"),
             area(),
-            scale(3,3),
+            scale(3, 3),
             anchor("center"),
             body({ isStatic: true }),
         ],
         ">": () => [
             sprite("TopRight"),
             area(),
-            scale(3,3),
+            scale(3, 3),
             anchor("center"),
             body({ isStatic: true }),
         ],
         "[": () => [
             sprite("MidLeft"),
             area(),
-            scale(3,3),
+            scale(3, 3),
             anchor("center"),
             body({ isStatic: true }),
         ],
         "]": () => [
             sprite("MidRight"),
             area(),
-            scale(3,3),
+            scale(3, 3),
             anchor("center"),
             body({ isStatic: true }),
         ],
         "o": () => [
             sprite("Middle"),
             area(),
-            scale(3,3),
+            scale(3, 3),
             anchor("center"),
             body({ isStatic: true }),
         ],
         "(": () => [
             sprite("BottomLeft"),
             area(),
-            scale(3,3),
+            scale(3, 3),
             anchor("center"),
             body({ isStatic: true }),
         ],
         ")": () => [
             sprite("BottomRight"),
             area(),
-            scale(3,3),
+            scale(3, 3),
             anchor("center"),
             body({ isStatic: true }),
         ],
         "-": () => [
             sprite("BottomMid"),
             area(),
-            scale(3,3),
+            scale(3, 3),
             anchor("center"),
             body({ isStatic: true }),
         ],
