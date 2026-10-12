@@ -193,7 +193,7 @@ k.onKeyPress("c", () => {
     if (!hasDashed) {
         hasDashed = true;
         main.play("dash", { loop: false });
-        wait(0.2, () => {
+        k.wait(0.2, () => {
             if (main.flipX == false) {
                 main.move(15000, 0);
             } else {
@@ -209,7 +209,7 @@ k.onKeyPress("x", () => {
     if (!hasSlashed) {
         hasSlashed = true;
         main.play("slash", { loop: false });
-        wait(0.5, () => {
+        k.wait(0.5, () => {
             main.play("idle", { loop: true });
             hasSlashed = false;
         })
@@ -256,9 +256,9 @@ if (main.destroyed()) {
 //level design (procedural? eventually...)
 k.setGravity(2400);
 
-setBackground(135, 206, 235); // sky blue
+k.setBackground(135, 206, 235); // sky blue
 
-const level = addLevel([
+const level = k.addLevel([
     // Design the level layout with symbols
     "               ",
     "               ",
@@ -273,71 +273,71 @@ const level = addLevel([
     tileWidth: 96,
     tileHeight: 96,
     // The position of the top left block
-    pos: vec2(100, 200),
+    pos: k.vec2(100, 200),
     // Define what each symbol means (in components)
     tiles: {
         "_": () => [
-            sprite("TopMid"),
-            area(),
-            scale(3, 3),
-            anchor("center"),
-            body({ isStatic: true }),
+            k.sprite("TopMid"),
+            k.area(),
+            k.scale(3, 3),
+            k.anchor("center"),
+            k.body({ isStatic: true }),
         ],
         "<": () => [
-            sprite("TopLeft"),
-            area(),
-            scale(3, 3),
-            anchor("center"),
-            body({ isStatic: true }),
+            k.sprite("TopLeft"),
+            k.area(),
+            k.scale(3, 3),
+            k.anchor("center"),
+            k.body({ isStatic: true }),
         ],
         ">": () => [
-            sprite("TopRight"),
-            area(),
-            scale(3, 3),
-            anchor("center"),
-            body({ isStatic: true }),
+            k.sprite("TopRight"),
+            k.area(),
+            k.scale(3, 3),
+            k.anchor("center"),
+            k.body({ isStatic: true }),
         ],
         "[": () => [
-            sprite("MidLeft"),
-            area(),
-            scale(3, 3),
-            anchor("center"),
-            body({ isStatic: true }),
+            k.sprite("MidLeft"),
+            k.area(),
+            k.scale(3, 3),
+            k.anchor("center"),
+            k.body({ isStatic: true }),
         ],
         "]": () => [
-            sprite("MidRight"),
-            area(),
-            scale(3, 3),
-            anchor("center"),
-            body({ isStatic: true }),
+            k.sprite("MidRight"),
+            k.area(),
+            k.scale(3, 3),
+            k.anchor("center"),
+            k.body({ isStatic: true }),
         ],
         "o": () => [
-            sprite("Middle"),
-            area(),
-            scale(3, 3),
-            anchor("center"),
-            body({ isStatic: true }),
+            k.sprite("Middle"),
+            k.area(),
+            k.scale(3, 3),
+            k.anchor("center"),
+            k.body({ isStatic: true }),
         ],
         "(": () => [
-            sprite("BottomLeft"),
-            area(),
-            scale(3, 3),
-            anchor("center"),
-            body({ isStatic: true }),
+            k.sprite("BottomLeft"),
+            k.area(),
+            k.scale(3, 3),
+            k.anchor("center"),
+            k.body({ isStatic: true }),
         ],
         ")": () => [
-            sprite("BottomRight"),
-            area(),
-            scale(3, 3),
-            anchor("center"),
-            body({ isStatic: true }),
+            k.sprite("BottomRight"),
+            k.area(),
+            k.scale(3, 3),
+            k.anchor("center"),
+            k.body({ isStatic: true }),
         ],
         "-": () => [
-            sprite("BottomMid"),
-            area(),
-            scale(3, 3),
-            anchor("center"),
-            body({ isStatic: true }),
+            k.sprite("BottomMid"),
+            k.area(),
+            k.scale(3, 3),
+            k.anchor("center"),
+            k.body({ isStatic: true }),
         ],
     }
 })
