@@ -129,7 +129,6 @@ k.loadSprite("main", "sprites/main.png", {
 //vars
 var hasSlashed = false;
 var hasDashed = false;
-var hasJumped = false;
 var health = 5;
 //placing sprites
 const main = k.add([
@@ -143,6 +142,7 @@ const main = k.add([
 const timer = k.add([
     k.timer()
 ])
+
 main.play("idle", { loop: true });
 
 //actions
@@ -182,22 +182,12 @@ k.onKeyRelease("left", () => {
 
 k.onKeyDown("z", () => {
     if (!hasDashed && !hasSlashed) {
-        if (!hasJumped) {
-        hasJumped = true;
-        main.play("jump", { loop: false });
-        main.jump(1500);
-        wait(0.4, () => {
-        main.play("idle", { loop: true });
-        })
+        if(main.isGrounded()){
+            main.jump(1200);
     }
     }
 })
 
-if(hasJumped == true) {
-    main.onCollide("ground"), (o)=>{
-    hasJumped = false;
-    }
-}
 
 k.onKeyPress("c", () => {
     if(!hasDashed) {
@@ -226,11 +216,11 @@ k.onKeyPress("x", () => {
         
     }  
 })
-
+/*
 if (main.isTouching("water")) {
     main.play("swim", { loop: true });
 }
-
+*/
 /*
 if(!hasSlashed && !hasDashed) {
 main.onCollide("enemy", (o)=>{
@@ -270,18 +260,18 @@ setBackground(135, 206, 235); // sky blue
 
 const level = addLevel([
     // Design the level layout with symbols
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    "                ",
-    " <_____________>",
-    " (-------------)",
+    "               ",
+    "               ",
+    "               ",
+    "               ",
+    "               ",
+    "               ",
+    "<_____________>",
+    "(-------------)",
 ], {
     // The size of each grid
-    tileWidth: 80,
-    tileHeight: 80,
+    tileWidth: 96,
+    tileHeight: 96,
     // The position of the top left block
     pos: vec2(100, 200),
     // Define what each symbol means (in components)
@@ -292,7 +282,6 @@ const level = addLevel([
             scale(3,3),
             anchor("center"),
             body({ isStatic: true }),
-            "ground",
         ],
         "<": () => [
             sprite("TopLeft"),
@@ -300,7 +289,6 @@ const level = addLevel([
             scale(3,3),
             anchor("center"),
             body({ isStatic: true }),
-            "ground",
         ],
         ">": () => [
             sprite("TopRight"),
@@ -308,7 +296,6 @@ const level = addLevel([
             scale(3,3),
             anchor("center"),
             body({ isStatic: true }),
-            "ground",
         ],
         "[": () => [
             sprite("MidLeft"),
@@ -316,7 +303,6 @@ const level = addLevel([
             scale(3,3),
             anchor("center"),
             body({ isStatic: true }),
-            "ground",
         ],
         "]": () => [
             sprite("MidRight"),
@@ -324,7 +310,6 @@ const level = addLevel([
             scale(3,3),
             anchor("center"),
             body({ isStatic: true }),
-            "ground",
         ],
         "o": () => [
             sprite("Middle"),
@@ -332,7 +317,6 @@ const level = addLevel([
             scale(3,3),
             anchor("center"),
             body({ isStatic: true }),
-            "ground",
         ],
         "(": () => [
             sprite("BottomLeft"),
@@ -340,7 +324,6 @@ const level = addLevel([
             scale(3,3),
             anchor("center"),
             body({ isStatic: true }),
-            "ground",
         ],
         ")": () => [
             sprite("BottomRight"),
@@ -348,7 +331,6 @@ const level = addLevel([
             scale(3,3),
             anchor("center"),
             body({ isStatic: true }),
-            "ground",
         ],
         "-": () => [
             sprite("BottomMid"),
@@ -356,7 +338,6 @@ const level = addLevel([
             scale(3,3),
             anchor("center"),
             body({ isStatic: true }),
-            "ground",
         ],
     }
 })
