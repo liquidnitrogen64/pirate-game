@@ -10,105 +10,27 @@ k.loadRoot("./"); // A good idea for Itch.io publishing later
 
 // place to load all sprites
 
-k.loadSpriteAtlas("sprites/squaresand.png", {
-    "TopLeft": {
-        x: 0,
-        y: 0,
-        width: 96,
-        height: 96,
-        sliceX: 3,
-        sliceY: 3,
-        anim: {
-            normal: 0,
-        }
+k.loadSprite("TopLeft", "sprites/TopLeft-2.png", {
+    sliceX: 1,
+    sliceY: 1,
+    anims: {
+        normal: 0,
     },
-    "TopMid": {
-        x: 0,
-        y: 0,
-        width: 96,
-        height: 96,
-        sliceX: 3,
-        sliceY: 3,
-        anim: {
-            normal: 1,
-        }
+})
+
+k.loadSprite("TopMid", "sprites/TopMiddle.png", {
+    sliceX: 1,
+    sliceY: 1,
+    anims: {
+        normal: 0,
     },
-    "TopRight": {
-        x: 0,
-        y: 0,
-        width: 96,
-        height: 96,
-        sliceX: 3,
-        sliceY: 3,
-        anim: {
-            normal: 2,
-        }
-    },
-    "MidLeft": {
-        x: 0,
-        y: 0,
-        width: 96,
-        height: 96,
-        sliceX: 3,
-        sliceY: 3,
-        anim: {
-            normal: 3,
-        }
-    },
-    "Middle": {
-        x: 0,
-        y: 0,
-        width: 96,
-        height: 96,
-        sliceX: 3,
-        sliceY: 3,
-        anim: {
-            normal: 4,
-        }
-    },
-    "MidRight": {
-        x: 0,
-        y: 0,
-        width: 96,
-        height: 96,
-        sliceX: 3,
-        sliceY: 3,
-        anim: {
-            normal: 5,
-        }
-    },
-    "BottomLeft": {
-        x: 0,
-        y: 0,
-        width: 96,
-        height: 96,
-        sliceX: 3,
-        sliceY: 3,
-        anim: {
-            normal: 6,
-        }
-    },
-    "BottomMid": {
-        x: 0,
-        y: 0,
-        width: 96,
-        height: 96,
-        sliceX: 3,
-        sliceY: 3,
-        anim: {
-            normal: 7,
-        }
-    },
-    "BottomRight": {
-        x: 0,
-        y: 0,
-        width: 96,
-        height: 96,
-        sliceX: 3,
-        sliceY: 3,
-        anim: {
-            normal: 8,
-        }
+})
+
+k.loadSprite("TopRight", "sprites/TopRight-2.png", {
+    sliceX: 1,
+    sliceY: 1,
+    anims: {
+        normal: 0,
     },
 })
 
@@ -252,6 +174,12 @@ if (main.destroyed()) {
 }
 */
 
+main.onUpdate(() => {
+    if (main.pos.y > 1000) {
+        destroy(main);
+        shake(100);}
+});
+
 
 //level design (procedural? eventually...)
 k.setGravity(2400);
@@ -266,8 +194,8 @@ const level = k.addLevel([
     "               ",
     "               ",
     "               ",
-    "<_____________>",
-    "(-------------)",
+    "<_>  <___>  <_>",
+    "               ",
 ], {
     // The size of each grid
     tileWidth: 96,
@@ -296,48 +224,6 @@ const level = k.addLevel([
             k.scale(3, 3),
             k.anchor("center"),
             k.body({ isStatic: true }),
-        ],
-        "[": () => [
-            k.sprite("MidLeft"),
-            k.area(),
-            k.scale(3, 3),
-            k.anchor("center"),
-            k.body({ isStatic: true }),
-        ],
-        "]": () => [
-            k.sprite("MidRight"),
-            k.area(),
-            k.scale(3, 3),
-            k.anchor("center"),
-            k.body({ isStatic: true }),
-        ],
-        "o": () => [
-            k.sprite("Middle"),
-            k.area(),
-            k.scale(3, 3),
-            k.anchor("center"),
-            k.body({ isStatic: true }),
-        ],
-        "(": () => [
-            k.sprite("BottomLeft"),
-            k.area(),
-            k.scale(3, 3),
-            k.anchor("center"),
-            k.body({ isStatic: true }),
-        ],
-        ")": () => [
-            k.sprite("BottomRight"),
-            k.area(),
-            k.scale(3, 3),
-            k.anchor("center"),
-            k.body({ isStatic: true }),
-        ],
-        "-": () => [
-            k.sprite("BottomMid"),
-            k.area(),
-            k.scale(3, 3),
-            k.anchor("center"),
-            k.body({ isStatic: true }),
-        ],
+        ]
     }
 })
