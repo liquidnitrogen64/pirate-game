@@ -177,7 +177,21 @@ if (main.destroyed()) {
 main.onUpdate(() => {
     if (main.pos.y > 1000) {
         destroy(main);
-        shake(100);}
+        shake(100);
+        add([
+            rect(width(), height()),
+            color(0, 0, 0),
+            opacity(0.8),
+            fixed(),
+        ]);
+        add([
+            text("YOU DIED", { size: 64 }),
+            pos(center()),
+            anchor("center"),
+            color(255, 0, 0),
+            fixed(),
+        ]);
+    }
 });
 
 
