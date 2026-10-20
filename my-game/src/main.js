@@ -65,9 +65,9 @@ const timer = k.add([
     k.timer()
 ])
 
-main.play("idle", { loop: true });
-
 //actions
+
+main.play("idle", { loop: true });
 
 
 k.onKeyPress("right", () => {
