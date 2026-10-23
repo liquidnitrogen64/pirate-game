@@ -194,6 +194,26 @@ main.onUpdate(() => {
     }
 });
 
+//win!
+main.onUpdate(() => {
+    if (main.pos.x > 1500) {
+        destroy(main);
+        add([
+            rect(width(), height()),
+            color(0, 0, 0),
+            opacity(0.8),
+            fixed(),
+        ]);
+        add([
+            text("YOU WIN! <3", { size: 64 }),
+            pos(center()),
+            anchor("center"),
+            color(255, 0, 0),
+            fixed(),
+        ]);
+    }
+});
+
 
 //level design (procedural? eventually...)
 k.setGravity(2400);
